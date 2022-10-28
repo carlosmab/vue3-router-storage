@@ -12,6 +12,7 @@ const back = () => {
 }
 
 getData(`https://pokeapi.co/api/v2/pokemon/${route.params.name}`);
+
 </script>
 
 <template>

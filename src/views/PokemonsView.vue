@@ -4,18 +4,35 @@ import { useGetData } from "@/composables/getData";
 
 const { getData, data, loading } = useGetData();
 
-getData("https://pokeapi.co/api/v2/pokemon/")
-
+getData("https://pokeapi.co/api/v2/pokemon/");
 </script>
 
 <template>
   <h1>Pokemons</h1>
   <p v-if="loading">Loading...</p>
-  <ul v-if="data">
-    <li v-for="poke in data.results" :key="poke.name">
-      <router-link :to="`/pokemons/${poke.name}`">
-        {{ poke.name }}
-      </router-link>
-    </li>
-  </ul>
+  <div v-if="data">
+    <ul class="list-group">
+      <li v-for="poke in data.results" :key="poke.name" class="list-group-item">
+        <router-link :to="`/pokemons/${poke.name}`">
+          {{ poke.name }}
+        </router-link>
+      </li>
+    </ul>
+    <div class="mt-2">
+      <button 
+        :disabled="!data.previous"
+        class="btn btn-success me-2" 
+        @click="getData(data.previous)"
+      >
+        Previous
+      </button>
+      <button 
+        :disabled="!data.next"
+        class="btn btn-primary" 
+        @click="getData(data.next)"
+      >
+        Next
+      </button>
+    </div>
+  </div>
 </template>
